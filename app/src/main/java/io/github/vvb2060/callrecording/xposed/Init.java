@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Member;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Objects;
