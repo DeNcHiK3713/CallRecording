@@ -13,7 +13,7 @@ import java.lang.reflect.Member;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.Optional;
+import j$.util.Optional;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
