@@ -125,10 +125,9 @@ public class Init implements IXposedHookLoadPackage {
 			}
 		}
 		
-        if (getSupportedLocaleFromCountryCode != null && getSupportedLocaleFromCountryCode.isPresent()) {
-            var method = getSupportedLocaleFromCountryCode.get();
-            Log.d(TAG, "getSupportedLocaleFromCountryCode: " + method);
-            XposedBridge.hookMethod(method, new XC_MethodReplacement() {
+        if (getSupportedLocaleFromCountryCode != null) {
+            Log.d(TAG, "getSupportedLocaleFromCountryCode: " + getSupportedLocaleFromCountryCode);
+            XposedBridge.hookMethod(getSupportedLocaleFromCountryCode, new XC_MethodReplacement() {
                 @Override
                 protected Object replaceHookedMethod(MethodHookParam param) {
                     Log.d(TAG, "getSupportedLocaleFromCountryCode: " + Arrays.toString(param.args));
