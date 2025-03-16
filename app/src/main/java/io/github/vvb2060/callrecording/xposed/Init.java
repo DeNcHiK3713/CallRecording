@@ -98,7 +98,7 @@ public class Init implements IXposedHookLoadPackage {
                                 null,
                                 null,
                                 null,
-                                false));
+                                false);
 
 		var b = dex.findMethodUsingString("com/android/dialer/callrecording/impl/localeprovider/LocaleProvider",
 										false,
@@ -109,7 +109,7 @@ public class Init implements IXposedHookLoadPackage {
 										null,
 										null,
 										null,
-										false));
+										false);
 
 		Member getSupportedLocaleFromCountryCode = null;
 		for  (int i = 0; i < a.length ; i++)
