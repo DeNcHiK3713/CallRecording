@@ -1,6 +1,6 @@
 name: Build
 
-on: [ push, pull_request, workflow_dispatch ]
+on: [ workflow_dispatch ]
 
 jobs:
   build:
@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ ubuntu-latest, windows-latest, macOS-latest ]
+        os: [ ubuntu-latest ]
 
     steps:
       - name: Check out
@@ -27,7 +27,7 @@ jobs:
           echo 'android.includeDependencyInfoInApks=false' >> gradle.properties
           ./gradlew assemble
       - name: Upload build artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.os }}-artifact
           path: app/build/outputs
