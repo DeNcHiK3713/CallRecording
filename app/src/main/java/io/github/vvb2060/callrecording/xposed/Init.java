@@ -88,22 +88,43 @@ public class Init implements IXposedHookLoadPackage {
         }
     }
 
-    private static void hookGetSupportedLocaleFromCountryCode(DexHelper dex) {
-        var getSupportedLocaleFromCountryCode = Arrays.stream(
-                        dex.findMethodUsingString("getSupportedLocaleFromCountryCode",
+ private static void hookGetSupportedLocaleFromCountryCode(DexHelper dex) {
+        var a = dex.findMethodUsingString("getSupportedLocaleFromCountryCode",
                                 false,
                                 -1,
-                                (short) 3,
+                                (short) 2,
                                 null,
                                 -1,
                                 null,
                                 null,
                                 null,
-                                true))
-                .mapToObj(dex::decodeMethodIndex)
-                .filter(Objects::nonNull)
-                .findFirst();
-        if (getSupportedLocaleFromCountryCode.isPresent()) {
+                                false));
+
+		var b = dex.findMethodUsingString("com/android/dialer/callrecording/impl/localeprovider/LocaleProvider",
+										false,
+										-1,
+										(short) 2,
+										null,
+										-1,
+										null,
+										null,
+										null,
+										false));
+
+		Member getSupportedLocaleFromCountryCode = null;
+		for  (int i = 0; i < a.length ; i++)
+		{
+			for  (int j = 0; j < b.length ; j++)
+			{
+				if (a[i] == b[j])
+				{
+					getSupportedLocaleFromCountryCode = dex.decodeMethodIndex(a[i]);
+					break;
+				}
+			}
+		}
+		
+        if (getSupportedLocaleFromCountryCode != null && getSupportedLocaleFromCountryCode.isPresent()) {
             var method = getSupportedLocaleFromCountryCode.get();
             Log.d(TAG, "getSupportedLocaleFromCountryCode: " + method);
             XposedBridge.hookMethod(method, new XC_MethodReplacement() {
